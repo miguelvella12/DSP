@@ -4,28 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/DSP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DSP.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DSP_notebook.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/5and2Combined_Vondel_NO2.tif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/CVIand5Combined.tif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel2_Ams.tif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel2_Vondel.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel2_Vondel_NoTAggregate.tif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel5And2_Amsterdam.tif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel5_Ams.tif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel5_CO_Vondel.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/result (1) - EVI.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/result (2) - EVI - geoJSON.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/result (3) - NDVI.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/result (6) - MSI.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/result (7) - SAVI.tiff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple.ipynb" afterDir="false" />
+    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/CorrelationTesting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data_Processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DSP_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/DSP_notebook.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/5and2Combined_Vondel_NO2.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CVIand5Combined.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel2_Ams.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel2_Vondel.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel2_Vondel_NoTAggregate.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel5And2_Amsterdam.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel5_Ams.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel5_CO_Vondel.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/result (1) - EVI.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/result (2) - EVI - geoJSON.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/result (3) - NDVI.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/result (6) - MSI.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/result (7) - SAVI.tiff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simple.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +40,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "miguelvella12"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/miguelvella12/DSP.git",
+    "accountId": "f00dd602-302b-4dd5-a62e-1d34c2d85006"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 0
 }]]></component>
@@ -54,15 +63,45 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.Data_Processing.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "vcs.Git"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Datasets" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Data_Processing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DSP" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Data_Processing" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -82,5 +121,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
   </component>
 </project>
