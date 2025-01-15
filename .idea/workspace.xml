@@ -4,25 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/CorrelationTesting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data_Processing.py" afterDir="false" />
+    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Adding data processing file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DSP_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/DSP_notebook.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/5and2Combined_Vondel_NO2.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/CVIand5Combined.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel2_Ams.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel2_Vondel.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel2_Vondel_NoTAggregate.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel5And2_Amsterdam.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel5_Ams.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel5_CO_Vondel.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/result (1) - EVI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/result (2) - EVI - geoJSON.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/result (3) - NDVI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/result (6) - MSI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/result (7) - SAVI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_Processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +108,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
+    <MESSAGE value="Adding data processing file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding data processing file" />
   </component>
 </project>
