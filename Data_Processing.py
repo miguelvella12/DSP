@@ -117,19 +117,23 @@ def change_sentinel5_csv_structure(s5_file_path, s2_file_path, output_csv_path):
     return
 
 # Update the `directory` path to the folder containing your files
-# directory = "Datasets/Sentinel-2/Sentinel2_Vondel"
+# directory = "Datasets/Sentinel-5P/AirQualityIndex_Vondel"
 # old_prefix = "openEO"
-# new_prefix = "NO2_Vondel"
+# new_prefix = "AirQualityIndex_Vondel"
 # rename_files(directory, old_prefix, new_prefix)
 
 # Convert GeoTIFF files to .csv file
-# output_csv = "Datasets/Sentinel-2/Sentinel2_Vondel/Sentinel2_Vondel_CSV.csv"
+# output_csv = "Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel.csv"
 # convert_geotiff_to_csv(directory, output_csv)
 
-change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_CSV.csv",
-                               s2_file_path="Datasets/Sentinel-2/Sentinel2_Vondel/Sentinel2_Vondel_CSV.csv",
-                               output_csv_path="Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_CSV.csv")
+#change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_CSV.csv",
+                             #  s2_file_path="Datasets/Sentinel-2/Sentinel2_Vondel/Sentinel2_Vondel_CSV.csv",
+                             #  output_csv_path="Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_CSV.csv")
 
-change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_CSV.csv",
+#change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_CSV.csv",
+                              # s2_file_path="Datasets/Sentinel-2/Sentinel2_Vondel/Sentinel2_Vondel_CSV.csv",
+                               #output_csv_path="Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_CSV.csv")
+
+change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel.csv",
                                s2_file_path="Datasets/Sentinel-2/Sentinel2_Vondel/Sentinel2_Vondel_CSV.csv",
-                               output_csv_path="Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_CSV.csv")
+                               output_csv_path="Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel.csv")
