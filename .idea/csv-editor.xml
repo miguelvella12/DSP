@@ -3,6 +3,34 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv">
           <value>
             <Attribute>

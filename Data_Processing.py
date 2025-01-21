@@ -3,6 +3,7 @@ import os
 import rasterio
 import pandas as pd
 import numpy as np
+from scipy.spatial import cKDTree
 
 def rename_files(directory, old_prefix, new_prefix):
     """
@@ -173,12 +174,54 @@ def merge_aqi_files(input_directory, output_directory, green_space):
 
     return
 
+def spatial_match(ndvi_file, file_to_match, output_file):
+    """
+    Spatially matches csv file with NDVI csv based on spatial proximity. The resulting csv contains the value
+    of the nearest NDVI value for each coordinate in the file_to_match csv.
+
+    :param ndvi_file: Path to NDVI csv file
+    :param file_to_match: Path to csv file to match, i.e. Soil Moisture and Land Temperature
+    :param output_file: Path to output file
+    :return:
+    """
+
+    # Load datasets
+    file_to_match_df = pd.read_csv(file_to_match)
+    ndvi_df = pd.read_csv(ndvi_file)
+
+    # Convert 'Date' columns to datetime
+    file_to_match_df['Date'] = pd.to_datetime(file_to_match_df['Date'])
+    ndvi_df['Date'] = pd.to_datetime(ndvi_df['Date'])
+
+    # Convert coordinates to numeric values for spatial matching
+    file_to_match_df[['X', 'Y']] = file_to_match_df['Coordinates'].str.split(',', expand=True).astype(float)
+    ndvi_df[['X', 'Y']] = ndvi_df['Coordinates'].str.split(',', expand=True).astype(float)
+
+    # Build a KDTree for NDVI coordinates
+    tree = cKDTree(ndvi_df[['X', 'Y']])
+
+    # Find the nearest NDVI value for each soil moisture location
+    distances, indices = tree.query(file_to_match_df[['X', 'Y']])
+
+    # Assign matched NDVI values and distance
+    file_to_match_df['Nearest_NDVI'] = ndvi_df.iloc[indices]['Value'].values
+
+    # Drop temporary coordinate columns
+    file_to_match_df.drop(columns=['X', 'Y'], inplace=True)
+
+    # Save the matched dataset
+    file_to_match_df.to_csv(output_file, index=False)
+
+    print(f"Saved matched dataset to {output_file}")
+
+    return
+
 old_prefix = "openEO"
 
-# #################################################
+# ########################################################
 # # Data Processing for NDVI (Sentinel-2) Files
-# #################################################
-
+# ########################################################
+#
 #
 ## VONDEL
 #
@@ -225,139 +268,243 @@ old_prefix = "openEO"
 # convert_geotiff_to_csv(directory, output_csv)
 #
 #
-# ################################################
-# Data Processing for AQI (Sentinel-5P) Files
-# ################################################
+# ########################################################
+# # Data Processing for AQI (Sentinel-5P) Files
+# ########################################################
 #
 # ## VONDEL
 #
-vondel_aer_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_AER"
-vondel_co_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_CO"
-vondel_no2_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_NO2"
-vondel_o3_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_O3"
-vondel_so2_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_SO2"
-
-# Rename files
-new_prefix = "Vondel_AER"
-rename_files(vondel_aer_directory, old_prefix, new_prefix)
-new_prefix = "Vondel_CO"
-rename_files(vondel_co_directory, old_prefix, new_prefix)
-new_prefix = "Vondel_NO2"
-rename_files(vondel_no2_directory, old_prefix, new_prefix)
-new_prefix = "Vondel_O3"
-rename_files(vondel_o3_directory, old_prefix, new_prefix)
-new_prefix = "Vondel_SO2"
-rename_files(vondel_o3_directory, old_prefix, new_prefix)
-
-# Calculate AQI
-input_directory = "Datasets/Sentinel-5P/Vondelpark"
-output_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex"
-merge_aqi_files(input_directory, output_directory, "Vondel")
+# vondel_aer_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_AER"
+# vondel_co_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_CO"
+# vondel_no2_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_NO2"
+# vondel_o3_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_O3"
+# vondel_so2_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_SO2"
+#
+# # Rename files
+# new_prefix = "Vondel_AER"
+# rename_files(vondel_aer_directory, old_prefix, new_prefix)
+# new_prefix = "Vondel_CO"
+# rename_files(vondel_co_directory, old_prefix, new_prefix)
+# new_prefix = "Vondel_NO2"
+# rename_files(vondel_no2_directory, old_prefix, new_prefix)
+# new_prefix = "Vondel_O3"
+# rename_files(vondel_o3_directory, old_prefix, new_prefix)
+# new_prefix = "Vondel_SO2"
+# rename_files(vondel_o3_directory, old_prefix, new_prefix)
+#
+# # Calculate AQI
+# input_directory = "Datasets/Sentinel-5P/Vondelpark"
+# output_directory = "Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex"
+# merge_aqi_files(input_directory, output_directory, "Vondel")
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# #Change structure of file to match sentinel-2 file
+# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv",
+#  s2_file_path="Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
+#  output_csv_path="Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv")
+#
+# ## AMSTEL
+# amstel_aer_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_AER"
+# amstel_co_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_CO"
+# amstel_no2_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_NO2"
+# amstel_o3_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_O3"
+# amstel_so2_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_SO2"
+#
+# # Rename files
+# new_prefix = "Amstel_AER"
+# rename_files(amstel_aer_directory, old_prefix, new_prefix)
+# new_prefix = "Amstel_CO"
+# rename_files(amstel_co_directory, old_prefix, new_prefix)
+# new_prefix = "Amstel_NO2"
+# rename_files(amstel_no2_directory, old_prefix, new_prefix)
+# new_prefix = "Amstel_O3"
+# rename_files(amstel_o3_directory, old_prefix, new_prefix)
+# new_prefix = "Amstel_SO2"
+# rename_files(amstel_so2_directory, old_prefix, new_prefix)
+#
+# # Calculate AQI
+# input_directory = "Datasets/Sentinel-5P/Amstelpark"
+# output_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex"
+# merge_aqi_files(input_directory, output_directory, "Amstel")
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# #Change structure of file to match sentinel-2 file
+# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv",
+#  s2_file_path="Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
+#  output_csv_path="Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv")
+#
+# ## REMBRANDT
+# rembrandt_aer_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AER"
+# rembrandt_co_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_CO"
+# rembrandt_no2_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_NO2"
+# rembrandt_o3_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_O3"
+# rembrandt_so2_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_SO2"
+#
+# # Rename files
+# new_prefix = "Rembrandt_AER"
+# rename_files(rembrandt_aer_directory, old_prefix, new_prefix)
+# new_prefix = "Rembrandt_CO"
+# rename_files(rembrandt_co_directory, old_prefix, new_prefix)
+# new_prefix = "Rembrandt_NO2"
+# rename_files(rembrandt_no2_directory, old_prefix, new_prefix)
+# new_prefix = "Rembrandt_O3"
+# rename_files(rembrandt_o3_directory, old_prefix, new_prefix)
+# new_prefix = "Rembrandt_SO2"
+# rename_files(rembrandt_so2_directory, old_prefix, new_prefix)
+#
+# # Calculate AQI
+# input_directory = "Datasets/Sentinel-5P/Rembrandtpark"
+# output_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex"
+# merge_aqi_files(input_directory, output_directory, "Rembrandt")
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# #Change structure of file to match sentinel-2 file
+# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv",
+#  s2_file_path="Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
+#  output_csv_path="Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv")
+#
+# ## WESTER
+# wester_aer_directory = "Datasets/Sentinel-5P/Westerpark/Wester_AER"
+# wester_co_directory = "Datasets/Sentinel-5P/Westerpark/Wester_CO"
+# wester_no2_directory = "Datasets/Sentinel-5P/Westerpark/Wester_NO2"
+# wester_o3_directory = "Datasets/Sentinel-5P/Westerpark/Wester_O3"
+# wester_so2_directory = "Datasets/Sentinel-5P/Westerpark/Wester_SO2"
+#
+# # Rename files
+# new_prefix = "Wester_AER"
+# rename_files(wester_aer_directory, old_prefix, new_prefix)
+# new_prefix = "Wester_CO"
+# rename_files(wester_co_directory, old_prefix, new_prefix)
+# new_prefix = "Wester_NO2"
+# rename_files(wester_no2_directory, old_prefix, new_prefix)
+# new_prefix = "Wester_O3"
+# rename_files(wester_o3_directory, old_prefix, new_prefix)
+# new_prefix = "Wester_SO2"
+# rename_files(wester_so2_directory, old_prefix, new_prefix)
+#
+# # Calculate AQI
+# input_directory = "Datasets/Sentinel-5P/Westerpark"
+# output_directory = "Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex"
+# merge_aqi_files(input_directory, output_directory, "Wester")
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# #Change structure of file to match sentinel-2 file
+# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv",
+#                                s2_file_path="Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
+#                                output_csv_path="Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv")
+#
+# ########################################################
+# # Data Processing for Soil Moisture (Sentinel-1) Files
+# ########################################################
+#
+## VONDEL
+#
+# Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv"
+# output_directory = "Datasets/Sentinel-1/Vondelpark"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Assign nearest NDVI value for each coordinate
+# spatial_match("Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
+#               "Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv",
+#               "Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv")
+#
+# ## AMSTEL
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv"
+# output_directory = "Datasets/Sentinel-1/Amstelpark"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Assign nearest NDVI value for each coordinate
+# spatial_match("Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
+#               "Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv",
+#               "Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv")
+#
+# ## REMBRANDT
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv"
+# output_directory = "Datasets/Sentinel-1/Rembrandtpark"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Assign nearest NDVI value for each coordinate
+# spatial_match("Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
+#               "Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv",
+#               "Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv")
+#
+# ## WESTER
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv"
+# output_directory = "Datasets/Sentinel-1/Westerpark"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Assign nearest NDVI value for each coordinate
+# spatial_match("Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
+#               "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv",
+#               "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv")
+#
+# #########################################################
+# # Data Processing for Land Surface Temp (Landsat-8) Files
+# #########################################################
+#
+## VONDEL
 
 # Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv"
+output_csv = "Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv"
+output_directory = "Datasets/Landsat-8/Vondelpark"
 convert_geotiff_to_csv(output_directory, output_csv)
 
-#Change structure of file to match sentinel-2 file
-change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv",
- s2_file_path="Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
- output_csv_path="Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv")
+# Assign nearest NDVI value for each coordinate
+spatial_match("Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
+              "Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv",
+              "Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv")
 
 ## AMSTEL
-amstel_aer_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_AER"
-amstel_co_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_CO"
-amstel_no2_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_NO2"
-amstel_o3_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_O3"
-amstel_so2_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_SO2"
-
-# Rename files
-new_prefix = "Amstel_AER"
-rename_files(amstel_aer_directory, old_prefix, new_prefix)
-new_prefix = "Amstel_CO"
-rename_files(amstel_co_directory, old_prefix, new_prefix)
-new_prefix = "Amstel_NO2"
-rename_files(amstel_no2_directory, old_prefix, new_prefix)
-new_prefix = "Amstel_O3"
-rename_files(amstel_o3_directory, old_prefix, new_prefix)
-new_prefix = "Amstel_SO2"
-rename_files(amstel_so2_directory, old_prefix, new_prefix)
-
-# Calculate AQI
-input_directory = "Datasets/Sentinel-5P/Amstelpark"
-output_directory = "Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex"
-merge_aqi_files(input_directory, output_directory, "Amstel")
 
 # Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv"
+output_csv = "Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv"
+output_directory = "Datasets/Landsat-8/Amstelpark"
 convert_geotiff_to_csv(output_directory, output_csv)
 
-#Change structure of file to match sentinel-2 file
-change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv",
- s2_file_path="Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
- output_csv_path="Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv")
-
-## REMBRANDT
-rembrandt_aer_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AER"
-rembrandt_co_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_CO"
-rembrandt_no2_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_NO2"
-rembrandt_o3_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_O3"
-rembrandt_so2_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_SO2"
-
-# Rename files
-new_prefix = "Rembrandt_AER"
-rename_files(rembrandt_aer_directory, old_prefix, new_prefix)
-new_prefix = "Rembrandt_CO"
-rename_files(rembrandt_co_directory, old_prefix, new_prefix)
-new_prefix = "Rembrandt_NO2"
-rename_files(rembrandt_no2_directory, old_prefix, new_prefix)
-new_prefix = "Rembrandt_O3"
-rename_files(rembrandt_o3_directory, old_prefix, new_prefix)
-new_prefix = "Rembrandt_SO2"
-rename_files(rembrandt_so2_directory, old_prefix, new_prefix)
-
-# Calculate AQI
-input_directory = "Datasets/Sentinel-5P/Rembrandtpark"
-output_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex"
-merge_aqi_files(input_directory, output_directory, "Rembrandt")
-
-# Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv"
-convert_geotiff_to_csv(output_directory, output_csv)
-
-#Change structure of file to match sentinel-2 file
-change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv",
- s2_file_path="Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
- output_csv_path="Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv")
+# Assign nearest NDVI value for each coordinate
+spatial_match("Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
+              "Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv",
+              "Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv")
 
 ## WESTER
-wester_aer_directory = "Datasets/Sentinel-5P/Westerpark/Wester_AER"
-wester_co_directory = "Datasets/Sentinel-5P/Westerpark/Wester_CO"
-wester_no2_directory = "Datasets/Sentinel-5P/Westerpark/Wester_NO2"
-wester_o3_directory = "Datasets/Sentinel-5P/Westerpark/Wester_O3"
-wester_so2_directory = "Datasets/Sentinel-5P/Westerpark/Wester_SO2"
-
-# Rename files
-new_prefix = "Wester_AER"
-rename_files(wester_aer_directory, old_prefix, new_prefix)
-new_prefix = "Wester_CO"
-rename_files(wester_co_directory, old_prefix, new_prefix)
-new_prefix = "Wester_NO2"
-rename_files(wester_no2_directory, old_prefix, new_prefix)
-new_prefix = "Wester_O3"
-rename_files(wester_o3_directory, old_prefix, new_prefix)
-new_prefix = "Wester_SO2"
-rename_files(wester_so2_directory, old_prefix, new_prefix)
-
-# Calculate AQI
-input_directory = "Datasets/Sentinel-5P/Westerpark"
-output_directory = "Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex"
-merge_aqi_files(input_directory, output_directory, "Wester")
 
 # Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv"
+output_csv = "Datasets/Landsat-8/Westerpark/Wester_LandTemp_csv.csv"
+output_directory = "Datasets/Landsat-8/Westerpark"
 convert_geotiff_to_csv(output_directory, output_csv)
 
-#Change structure of file to match sentinel-2 file
-change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv",
-                               s2_file_path="Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
-                               output_csv_path="Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv")
+# Assign nearest NDVI value for each coordinate
+spatial_match("Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
+              "Datasets/Landsat-8/Westerpark/Wester_LandTemp_csv.csv",
+              "Datasets/Landsat-8/Westerpark/Wester_LandTemp_csv.csv")
+
+## REMBRANDT
+
+# Convert GeoTIFF files to .csv file
+output_csv = "Datasets/Landsat-8/Rembrandtpark/Rembrandt_LandTemp_csv.csv"
+output_directory = "Datasets/Landsat-8/Rembrandtpark"
+convert_geotiff_to_csv(output_directory, output_csv)
+
+# Assign nearest NDVI value for each coordinate
+spatial_match("Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
+              "Datasets/Landsat-8/Rembrandtpark/Rembrandt_LandTemp_csv.csv",
+              "Datasets/Landsat-8/Rembrandtpark/Rembrandt_LandTemp_csv.csv")

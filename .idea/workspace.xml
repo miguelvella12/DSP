@@ -4,48 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Adding Air Quality Index files and carrying out some statistical tests">
+    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Adding Air Quality Index files for all green spaces">
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-02-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-03-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-04-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-05-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-06-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-07-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_Sentinel1_2024-08-01Z.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StatisticalTesting.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CorrelationTesting.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/CorrelationTesting.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data_Processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-01-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-02-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-03-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-04-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-06-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-07-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-08-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-09-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-10-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-11-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/AirQualityIndex_Vondel/AirQualityIndex_Vondel_2024-12-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-01-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-02-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-03-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-04-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-05-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-06-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-07-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-08-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-09-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-10-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-11-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_2024-12-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/CO_Vondel/CO_Vondel_CSV.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-01-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-02-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-03-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-04-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-05-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-06-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-07-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-08-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-09-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-10-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-11-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_2024-12-01Z.tif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-5P/NO2_Vondel/NO2_Vondel_CSV.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,27 +55,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Data_Processing.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/miguelvella/Documents/Uni_Docs/DSP/DSP/Datasets/MergedDatasets/Westerpark",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Data_Processing.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/miguelvella/Documents/Uni_Docs/DSP/DSP/Datasets&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Datasets/MergedDatasets/Westerpark" />
-      <recent name="$PROJECT_DIR$/Datasets/MergedDatasets/Vondelpark" />
-      <recent name="$PROJECT_DIR$/Datasets/MergedDatasets/Rembrandtpark" />
-      <recent name="$PROJECT_DIR$/Datasets/Sentinel-2/Vondel_NDVI" />
-      <recent name="$PROJECT_DIR$/Datasets/Sentinel-2" />
+      <recent name="$PROJECT_DIR$/Datasets" />
+      <recent name="$PROJECT_DIR$/Datasets/Landsat-8/Amstelpark" />
+      <recent name="$PROJECT_DIR$/Datasets/Landsat-8/Rembrandtpark" />
+      <recent name="$PROJECT_DIR$/Datasets/Landsat-8/Vondelpark" />
+      <recent name="$PROJECT_DIR$/Datasets/Landsat-8/Westerpark" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Datasets/Sentinel-2" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Datasets/Sentinel-1" />
+      <recent name="$PROJECT_DIR$/Datasets/Sentinel-2" />
       <recent name="$PROJECT_DIR$/Datasets" />
     </key>
   </component>
@@ -161,15 +134,16 @@
     <MESSAGE value="Adding data processing file" />
     <MESSAGE value="Adding data function to restructure Sentinel-5P data" />
     <MESSAGE value="Adding Air Quality Index files and carrying out some statistical tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding Air Quality Index files and carrying out some statistical tests" />
+    <MESSAGE value="Adding Air Quality Index files for all green spaces" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding Air Quality Index files for all green spaces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Data_Processing.py</url>
-          <line>111</line>
-          <option name="timeStamp" value="8" />
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/StatisticalTesting.ipynb</url>
+          <line>173</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
