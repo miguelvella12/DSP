@@ -1,0 +1,26 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="institution">openEO platform - Geotrellis backend: 0.59.0a1</MDI>
+    <MDI key="PROCESSING_SOFTWARE">0.59.0a1</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Description>LST</Description>
+    <Histograms>
+      <HistItem>
+        <HistMin>265.4536743164062</HistMin>
+        <HistMax>265.8651123046875</HistMax>
+        <BucketCount>2</BucketCount>
+        <IncludeOutOfRange>0</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>1|1</HistCounts>
+      </HistItem>
+    </Histograms>
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">265.79653930664</MDI>
+      <MDI key="STATISTICS_MEAN">265.65939331055</MDI>
+      <MDI key="STATISTICS_MINIMUM">265.52224731445</MDI>
+      <MDI key="STATISTICS_STDDEV">0.13714599609375</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

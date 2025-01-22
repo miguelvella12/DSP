@@ -83,37 +83,57 @@ def convert_geotiff_to_csv(directory, output_csv):
 
     return
 
-def change_sentinel5_csv_structure(s5_file_path, s2_file_path, output_csv_path):
+def change_csv_structure(factor_file_path, index_file_path, output_csv_path):
     """
-    Change the structure of Sentinel-5P csv to match Sentinel-2 (due to uniform CO values per year)
+    Change the structure of the environmental factor CSV to match NDVI values according to spatial proximity and date.
+    In this way all csv files will have same amount of rows
 
-    :param s5_file_path: Path to the Sentinel-5P csv file
-    :param s2_file_path: Path to the Sentinel-2 csv file
+    :param factor_file_path: Path to the CSV factor file
+    :param index_file_path: Path to the CSV index (NDVI) file
     :param output_csv_path: Path to the output CSV file
     :return:
     """
 
-    s5_data = pd.read_csv(s5_file_path)
-    s2_data = pd.read_csv(s2_file_path)
+    factor_df = pd.read_csv(factor_file_path)
+    index_df = pd.read_csv(index_file_path)
 
-    # Create a mapping for Sentinel-5P values for each date
-    s5_date_mapping = s5_data.set_index("Date")['Value'].to_dict()
+    # Convert coordinates to float and split them into 2 columns
+    factor_df[['X', 'Y']] = factor_df['Coordinates'].str.split(',', expand=True).astype(float)
+    index_df[['X', 'Y']] = index_df['Coordinates'].str.split(',', expand=True).astype(float)
 
-    # Replicate Sentinel-5P data to match Sentinel-2 structure
-    new_s5_date_mapping = [
-        {
-            'Date': s2_row['Date'],
-            'Coordinates': s2_row['Coordinates'],
-            'Value': s5_date_mapping.get(s2_row['Date'], None)
-        }
-        for _, s2_row in s2_data.iterrows()
-    ]
+    # Ensure the date column is in datetime format for consistency
+    factor_df['Date'] = pd.to_datetime(factor_df['Date'])
+    index_df['Date'] = pd.to_datetime(index_df['Date'])
 
-    # Create new DataFrame for new Sentinel-5P data
-    new_s5_df = pd.DataFrame(new_s5_date_mapping)
+    matched_df_values = []
 
-    # Save
-    new_s5_df.to_csv(output_csv_path, index=False)
+    # Iterate through unique dates in the index dataset
+    for date in index_df['Date'].unique():
+        # Get the subset of index and factor data for the current date
+        index_subset = index_df[index_df['Date'] == date]
+        factor_subset = factor_df[factor_df['Date'] == date]
+
+        if factor_subset.empty:
+            print(f"Warning: No matching data found for date {date}. Filling with NaNs.")
+            matched_df_values.extend([None] * len(index_subset))
+            continue
+
+        # Build KDTree for factor file coordinates for the current date
+        factor_tree = cKDTree(factor_subset[['X', 'Y']].values)
+
+        # Find the nearest factor coordinate for each index coordinate
+        distances, indices = factor_tree.query(index_subset[['X', 'Y']].values)
+
+        # Get matched values for the current date
+        matched_df_values.extend(factor_subset.iloc[indices]['Value'].values)
+
+    # Update values
+    new_factor_df = index_df.copy()
+    new_factor_df['Value'] = matched_df_values
+    new_factor_df.drop(columns=['X', 'Y'], inplace=True)
+
+    # Save update factor
+    new_factor_df.to_csv(output_csv_path, index=False)
     print(f"CSV file written to {output_csv_path}")
 
     return
@@ -171,48 +191,6 @@ def merge_aqi_files(input_directory, output_directory, green_space):
         with rasterio.open(output_file_path, "w", **meta) as dst:
             dst.write(aqi, 1)
             print(f"Saved AQI raster for month {month_idx+1} to {output_file_path}")
-
-    return
-
-def spatial_match(ndvi_file, file_to_match, output_file):
-    """
-    Spatially matches csv file with NDVI csv based on spatial proximity. The resulting csv contains the value
-    of the nearest NDVI value for each coordinate in the file_to_match csv.
-
-    :param ndvi_file: Path to NDVI csv file
-    :param file_to_match: Path to csv file to match, i.e. Soil Moisture and Land Temperature
-    :param output_file: Path to output file
-    :return:
-    """
-
-    # Load datasets
-    file_to_match_df = pd.read_csv(file_to_match)
-    ndvi_df = pd.read_csv(ndvi_file)
-
-    # Convert 'Date' columns to datetime
-    file_to_match_df['Date'] = pd.to_datetime(file_to_match_df['Date'])
-    ndvi_df['Date'] = pd.to_datetime(ndvi_df['Date'])
-
-    # Convert coordinates to numeric values for spatial matching
-    file_to_match_df[['X', 'Y']] = file_to_match_df['Coordinates'].str.split(',', expand=True).astype(float)
-    ndvi_df[['X', 'Y']] = ndvi_df['Coordinates'].str.split(',', expand=True).astype(float)
-
-    # Build a KDTree for NDVI coordinates
-    tree = cKDTree(ndvi_df[['X', 'Y']])
-
-    # Find the nearest NDVI value for each soil moisture location
-    distances, indices = tree.query(file_to_match_df[['X', 'Y']])
-
-    # Assign matched NDVI values and distance
-    file_to_match_df['Nearest_NDVI'] = ndvi_df.iloc[indices]['Value'].values
-
-    # Drop temporary coordinate columns
-    file_to_match_df.drop(columns=['X', 'Y'], inplace=True)
-
-    # Save the matched dataset
-    file_to_match_df.to_csv(output_file, index=False)
-
-    print(f"Saved matched dataset to {output_file}")
 
     return
 
@@ -301,7 +279,7 @@ old_prefix = "openEO"
 # output_csv = "Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
-# #Change structure of file to match sentinel-2 file
+# # Change structure of file to match sentinel-2 file
 # change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv",
 #  s2_file_path="Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
 #  output_csv_path="Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv")
@@ -335,9 +313,9 @@ old_prefix = "openEO"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
 # #Change structure of file to match sentinel-2 file
-# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv",
-#  s2_file_path="Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
-#  output_csv_path="Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv")
+# change_sentinel5_csv_structure("Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv",
+#  "Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
+#  "Datasets/Sentinel-5P/Amstelpark/Amstel_AirQualityIndex/Amstel_AirQualityIndex_csv.csv")
 #
 # ## REMBRANDT
 # rembrandt_aer_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AER"
@@ -363,14 +341,14 @@ old_prefix = "openEO"
 # output_directory = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex"
 # merge_aqi_files(input_directory, output_directory, "Rembrandt")
 #
-# # Convert GeoTIFF files to .csv file
+# Convert GeoTIFF files to .csv file
 # output_csv = "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
 # #Change structure of file to match sentinel-2 file
-# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv",
-#  s2_file_path="Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
-#  output_csv_path="Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv")
+# change_csv_structure("Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv",
+#  "Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
+#  "Datasets/Sentinel-5P/Rembrandtpark/Rembrandt_AirQualityIndex/Rembrandt_AirQualityIndex_csv.csv")
 #
 # ## WESTER
 # wester_aer_directory = "Datasets/Sentinel-5P/Westerpark/Wester_AER"
@@ -401,9 +379,9 @@ old_prefix = "openEO"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
 # #Change structure of file to match sentinel-2 file
-# change_sentinel5_csv_structure(s5_file_path="Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv",
-#                                s2_file_path="Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
-#                                output_csv_path="Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv")
+# change_csv_structure("Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv",
+#                                "Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
+#                                "Datasets/Sentinel-5P/Westerpark/Wester_AirQualityIndex/Wester_AirQualityIndex_csv.csv")
 #
 # ########################################################
 # # Data Processing for Soil Moisture (Sentinel-1) Files
@@ -416,10 +394,10 @@ old_prefix = "openEO"
 # output_directory = "Datasets/Sentinel-1/Vondelpark"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
-# # Assign nearest NDVI value for each coordinate
-# spatial_match("Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
-#               "Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv",
-#               "Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv")
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv",
+#                      "Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
+#                      "Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv")
 #
 # ## AMSTEL
 #
@@ -428,11 +406,11 @@ old_prefix = "openEO"
 # output_directory = "Datasets/Sentinel-1/Amstelpark"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
-# # Assign nearest NDVI value for each coordinate
-# spatial_match("Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
-#               "Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv",
-#               "Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv")
-#
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv",
+#                      "Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
+#                      "Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv")
+
 # ## REMBRANDT
 #
 # # Convert GeoTIFF files to .csv file
@@ -440,71 +418,87 @@ old_prefix = "openEO"
 # output_directory = "Datasets/Sentinel-1/Rembrandtpark"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
-# # Assign nearest NDVI value for each coordinate
-# spatial_match("Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
-#               "Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv",
-#               "Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv")
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv",
+#                      "Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
+#                      "Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv")
 #
 # ## WESTER
 #
-# # Convert GeoTIFF files to .csv file
+# Convert GeoTIFF files to .csv file
 # output_csv = "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv"
 # output_directory = "Datasets/Sentinel-1/Westerpark"
 # convert_geotiff_to_csv(output_directory, output_csv)
 #
-# # Assign nearest NDVI value for each coordinate
-# spatial_match("Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
-#               "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv",
-#               "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv")
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv",
+#                      "Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
+#                      "Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv")
 #
 # #########################################################
-# # Data Processing for Land Surface Temp (Landsat-8) Files
+# # Data Processing for Land Surface Temp (Sentinel-3) Files
 # #########################################################
 #
 ## VONDEL
-
-# Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv"
-output_directory = "Datasets/Landsat-8/Vondelpark"
-convert_geotiff_to_csv(output_directory, output_csv)
-
-# Assign nearest NDVI value for each coordinate
-spatial_match("Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
-              "Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv",
-              "Datasets/Landsat-8/Vondelpark/Vondel_LandTemp_csv.csv")
-
+#
+# # Rename files
+# output_directory = "Datasets/Sentinel-3/Vondelpark"
+# new_prefix = "Vondel_LandTemp"
+# rename_files(output_directory, old_prefix, new_prefix)
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-3/Vondelpark/Vondel_LandTemp_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-3/Vondelpark/Vondel_LandTemp_csv.csv",
+#                      "Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv",
+#               "Datasets/Sentinel-3/Vondelpark/Vondel_LandTemp_csv.csv")
+#
 ## AMSTEL
-
-# Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv"
-output_directory = "Datasets/Landsat-8/Amstelpark"
-convert_geotiff_to_csv(output_directory, output_csv)
-
-# Assign nearest NDVI value for each coordinate
-spatial_match("Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
-              "Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv",
-              "Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv")
-
+#
+# Rename files
+# output_directory = "Datasets/Sentinel-3/Amstelpark"
+# new_prefix = "Amstel_LandTemp"
+# rename_files(output_directory, old_prefix, new_prefix)
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-3/Amstelpark/Amstel_LandTemp_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-3/Amstelpark/Amstel_LandTemp_csv.csv",
+#                      "Datasets/Sentinel-2/Amstel_NDVI/Amstel_NDVI_csv.csv",
+#                      "Datasets/Sentinel-3/Amstelpark/Amstel_LandTemp_csv.csv")
+#
 ## WESTER
-
-# Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Landsat-8/Westerpark/Wester_LandTemp_csv.csv"
-output_directory = "Datasets/Landsat-8/Westerpark"
-convert_geotiff_to_csv(output_directory, output_csv)
-
-# Assign nearest NDVI value for each coordinate
-spatial_match("Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
-              "Datasets/Landsat-8/Westerpark/Wester_LandTemp_csv.csv",
-              "Datasets/Landsat-8/Westerpark/Wester_LandTemp_csv.csv")
-
+#
+# Rename files
+# output_directory = "Datasets/Sentinel-3/Westerpark"
+# new_prefix = "Wester_LandTemp"
+# rename_files(output_directory, old_prefix, new_prefix)
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-3/Westerpark/Wester_LandTemp_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-3/Westerpark/Wester_LandTemp_csv.csv",
+#                      "Datasets/Sentinel-2/Wester_NDVI/Wester_NDVI_csv.csv",
+#                      "Datasets/Sentinel-3/Westerpark/Wester_LandTemp_csv.csv")
+#
 ## REMBRANDT
-
-# Convert GeoTIFF files to .csv file
-output_csv = "Datasets/Landsat-8/Rembrandtpark/Rembrandt_LandTemp_csv.csv"
-output_directory = "Datasets/Landsat-8/Rembrandtpark"
-convert_geotiff_to_csv(output_directory, output_csv)
-
-# Assign nearest NDVI value for each coordinate
-spatial_match("Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
-              "Datasets/Landsat-8/Rembrandtpark/Rembrandt_LandTemp_csv.csv",
-              "Datasets/Landsat-8/Rembrandtpark/Rembrandt_LandTemp_csv.csv")
+#
+# Rename files
+# output_directory = "Datasets/Sentinel-3/Rembrandtpark"
+# new_prefix = "Rembrandt_LandTemp"
+# rename_files(output_directory, old_prefix, new_prefix)
+#
+# # Convert GeoTIFF files to .csv file
+# output_csv = "Datasets/Sentinel-3/Rembrandtpark/Rembrandt_LandTemp_csv.csv"
+# convert_geotiff_to_csv(output_directory, output_csv)
+#
+# # Change csv file structure to match NDVI file
+# change_csv_structure("Datasets/Sentinel-3/Rembrandtpark/Rembrandt_LandTemp_csv.csv",
+#                      "Datasets/Sentinel-2/Rembrandt_NDVI/Rembrandt_NDVI_csv.csv",
+#                      "Datasets/Sentinel-3/Rembrandtpark/Rembrandt_LandTemp_csv.csv")

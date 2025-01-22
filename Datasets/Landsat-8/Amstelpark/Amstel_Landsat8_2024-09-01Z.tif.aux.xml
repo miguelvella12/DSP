@@ -1,0 +1,16 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="institution">openEO platform - Geotrellis backend: 0.57.0a1</MDI>
+    <MDI key="PROCESSING_SOFTWARE">0.57.0a1</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Description>B10</Description>
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">18130</MDI>
+      <MDI key="STATISTICS_MEAN">15606.545744681</MDI>
+      <MDI key="STATISTICS_MINIMUM">13790</MDI>
+      <MDI key="STATISTICS_STDDEV">901.856907691</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

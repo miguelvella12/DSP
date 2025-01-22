@@ -45,6 +45,62 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/Datasets/Sentinel-3/Amstelpark/Amstel_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3/Rembrandtpark/Rembrandt_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3/Vondelpark/Vondel_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3/Westerpark/Wester_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3_copy/Amstel_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3_copy/Rembrandt_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3_copy/Vondel_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/Datasets/Sentinel-3_copy/Wester_LandTemp_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/Datasets/Sentinel-5P/Vondelpark/Vondel_AirQualityIndex/Vondel_AirQualityIndex_csv.csv">
           <value>
             <Attribute>
