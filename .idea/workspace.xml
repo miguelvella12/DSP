@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Finishing statistical testing for all three environmental factors">
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3/Amstelpark/Amstel_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3/Rembrandtpark/Rembrandt_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3/Vondelpark/Vondel_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3/Westerpark/Wester_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3_copy/Amstel_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3_copy/Rembrandt_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3_copy/Vondel_LandTemp_csv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/Sentinel-3_copy/Wester_LandTemp_csv.csv" afterDir="false" />
+    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Updated statistical testing">
+      <change afterPath="$PROJECT_DIR$/CustomIndex.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_Processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Amstelpark/Amstel_SoilMoisture_csv.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Rembrandtpark/Rembrandt_SoilMoisture_csv.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Vondelpark/Vondel_SoilMoisture_csv.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/Sentinel-1/Westerpark/Wester_SoilMoisture_csv.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StatisticalTesting.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/StatisticalTesting.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +128,8 @@
     <MESSAGE value="Adding Air Quality Index files and carrying out some statistical tests" />
     <MESSAGE value="Adding Air Quality Index files for all green spaces" />
     <MESSAGE value="Finishing statistical testing for all three environmental factors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finishing statistical testing for all three environmental factors" />
+    <MESSAGE value="Updated statistical testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated statistical testing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -149,6 +138,21 @@
           <url>file://$PROJECT_DIR$/Data_Processing.py</url>
           <line>96</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
+          <line>261</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
+          <line>299</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
+          <line>240</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

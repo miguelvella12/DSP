@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-02.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/Datasets/Landsat-8/Amstelpark/Amstel_LandTemp_csv.csv">
           <value>
             <Attribute>
