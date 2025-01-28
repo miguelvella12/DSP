@@ -38,6 +38,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/Datasets/Sentinel-2/AMS_NDVI/AMS_NDVI_csv.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/Datasets/Sentinel-2/Vondel_NDVI/Vondel_NDVI_csv.csv">
           <value>
             <Attribute>

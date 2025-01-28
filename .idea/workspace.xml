@@ -4,11 +4,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Updated statistical testing">
-      <change afterPath="$PROJECT_DIR$/CustomIndex.ipynb" afterDir="false" />
+    <list default="true" id="52e786a7-0264-4cf0-9f9e-168d989609b0" name="Changes" comment="Created custom index">
       <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StatisticalTesting.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/StatisticalTesting.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CustomIndex.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/CustomIndex.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_Processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-02.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-02.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-03.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-03.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-04.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-04.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-05.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-05.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-06.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-06.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-07.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Amstelpark_2024-07.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-02.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-02.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-03.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-03.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-04.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-04.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-05.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-05.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-06.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-06.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-07.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Amstelpark_2024-07.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-02.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-02.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-03.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-03.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-04.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-04.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-05.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-05.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-06.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-06.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-07.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Rembrandtpark_2024-07.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-02.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-02.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-03.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-03.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-04.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-04.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-05.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-05.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-06.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-06.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-07.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Vondelpark_2024-07.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-02.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-02.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-03.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-03.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-04.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-04.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-05.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-05.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-06.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-06.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-07.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/CSV_Files/Westerpark_2024-07.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-02.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-02.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-03.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-03.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-04.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-04.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-05.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-05.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-06.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-06.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-07.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Rembrandtpark_2024-07.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-02.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-02.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-03.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-03.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-04.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-04.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-05.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-05.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-05.tif.aux.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-06.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-06.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-07.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Vondelpark_2024-07.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-02.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-02.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-03.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-03.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-04.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-04.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-05.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-05.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-06.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-06.tif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-07.tif" beforeDir="false" afterPath="$PROJECT_DIR$/Datasets/CustomIndex/Westerpark_2024-07.tif" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +178,8 @@
     <MESSAGE value="Adding Air Quality Index files for all green spaces" />
     <MESSAGE value="Finishing statistical testing for all three environmental factors" />
     <MESSAGE value="Updated statistical testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated statistical testing" />
+    <MESSAGE value="Created custom index" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created custom index" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -141,18 +191,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
-          <line>261</line>
+          <line>265</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
-          <line>299</line>
+          <line>303</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
           <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
-          <line>240</line>
+          <line>244</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
+          <line>450</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/CustomIndex.ipynb</url>
+          <line>447</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
